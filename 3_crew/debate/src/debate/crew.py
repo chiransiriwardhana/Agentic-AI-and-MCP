@@ -1,6 +1,9 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from langchain.llms import Ollama
 
+# Set up Ollama LLM
+ollama_llm = Ollama(model="llama3.2")
 
 @CrewBase
 class Debate():
@@ -13,6 +16,7 @@ class Debate():
     @agent
     def debater(self) -> Agent:
         return Agent(
+             llm="ollama/llama3.2",
             config=self.agents_config['debater'],
             verbose=True
         )
@@ -20,6 +24,7 @@ class Debate():
     @agent
     def judge(self) -> Agent:
         return Agent(
+            llm="ollama/llama3.2",
             config=self.agents_config['judge'],
             verbose=True
         )
